@@ -1,0 +1,26 @@
+@model IEnumerable<SkolSystem.Models.ElevDetails>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.El_Id)</th>
+            <th>@Html.DisplayNameFor(model => model.El_Fornamn)</th>
+            <th>@Html.DisplayNameFor(model => model.El_Efternamn)</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.El_Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.El_Fornamn)</td>
+            <td>@Html.DisplayFor(modelItem => item.El_Efternamn)</td>
+            <td>
+            @Html.ActionLink("Edit", "UpdateElev", new { id = item.El_Id })
+            @Html.ActionLink("Details", "Details", new { /*id = item.El_Id*/ })
+            @Html.ActionLink("Delete", "Details", new { /*id = item.El_Id */})
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
