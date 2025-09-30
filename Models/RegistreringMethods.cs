@@ -6,12 +6,24 @@ namespace SkolSystem.Models
     public class RegistreringMethods
     {
         public RegistreringMethods() { }
-        public List<RegistreringDetails> GetRegistreringDetailsList(out string errormsg) //visar vilka elever som är registrerade på vilka kurser
+        public List<RegistreringDetails> GetRegistreringDetailsList(out string errormsg, string valdKurs) //visar vilka elever som är registrerade på vilka kurser
         {
             SqlConnection sqlConnection = new SqlConnection();
             sqlConnection.ConnectionString = "Data Source=localhost,1433;Initial Catalog=SkolDB;User ID=sa;Password=Chandler-420;Pooling=False;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Authentication=SqlPassword;Application Name=vscode-mssql;Connect Retry Count=1;Connect Retry Interval=10;Command Timeout=30";
-            String sqlString = "SELECT e.El_Id, e.El_Fornamn, e.El_Efternamn, k.Ku_Namn FROM Tbl_Resultat r JOIN Tbl_Elev e ON r.El_Id = e.El_Id JOIN Tbl_Kurs k ON r.Ku_Id = k.Ku_Id";
+            String sqlString = "SELECT DISTINCT e.El_Id, e.El_Fornamn, e.El_Efternamn, k.Ku_Namn FROM Tbl_Resultat r JOIN Tbl_Elev e ON r.El_Id = e.El_Id JOIN Tbl_Kurs k ON r.Ku_Id = k.Ku_Id";
+            if(!string.IsNullOrEmpty(valdKurs))
+            {
+                sqlString += " WHERE k.Ku_Namn = @Ku_Namn";
+            }
+
             SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
+
+            if(!string.IsNullOrEmpty(valdKurs))
+            {
+                sqlCommand.Parameters.AddWithValue("Ku_Namn", valdKurs);
+            }
+
+
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
             DataSet dataSet = new DataSet();
             List<RegistreringDetails> registreringDetailsList = new List<RegistreringDetails>();

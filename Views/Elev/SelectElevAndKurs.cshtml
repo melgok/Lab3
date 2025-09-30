@@ -5,43 +5,16 @@
     ViewData["Title"] = "SelectElevAndKurs";
 }
 
-<h1>SelectElev</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Fornamn</th>
-            <th>Efternamn</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.ElevDetails)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.El_Id)</td>
-                <td>@Html.DisplayFor(modelItem => item.El_Fornamn)</td>
-                <td>@Html.DisplayFor(modelItem => item.El_Efternamn)</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /*id = item.El_Id */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id = item.El_Id */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id = item.El_Id */})
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-<p></p>
-<p></p>
-
-<select id="El_Id" name="El_Fornamn">
-@foreach (var item in Model.ElevDetails)
+<form action="SelectElevAndKurs" method="get">
+<select id="Ku_Namn" name="valdKurs">
+@foreach (var item in ViewBag.Kurser)
     {
-        <option value="@Html.DisplayFor(modelItem => item.El_Id)">
-            @Html.DisplayFor(modelItem => item.El_Fornamn)
-        </option>
+        <option value=@item>@item</option>
     }
 </select>
+<button type="submit" class="btn btn-primary">Välj kurs</button>
+</form>
 
 <p></p>
 <p></p>
@@ -62,9 +35,9 @@
             <td>@Html.DisplayFor(modelItem => item.El_Efternamn)</td>
             <td>@Html.DisplayFor(modelItem => item.Ku_Namn)</td>
              <td>
-                    @Html.ActionLink("Edit", "Edit", new { /*id = item.El_Id */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id = item.El_Id */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id = item.El_Id */})
+                    @Html.ActionLink("Edit", "Edit", new { /*id = item.El_Id*/ }) |
+                    @* @Html.ActionLink("Details", "Details", new {/* id = item.El_Id */}) | *@
+                    @Html.ActionLink("Delete", "DeleteElev", new {/*id = item.El_Id*/})
                 </td>
         </tr>
     }

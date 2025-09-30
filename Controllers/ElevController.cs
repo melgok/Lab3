@@ -108,7 +108,7 @@ namespace SkolSystem.Controllers
 
         }
 
-        public ActionResult SelectElevAndKurs()
+        public ActionResult SelectElevAndKurs(string valdKurs)
         {
             string errormsg;
             string errormsg2;
@@ -116,16 +116,18 @@ namespace SkolSystem.Controllers
             ElevMethods elevMethods = new ElevMethods();
             RegistreringMethods registreringMethods = new RegistreringMethods();
 
+            // hämtar registreringar baserat på vald kurs
+            var registreringList = registreringMethods.GetRegistreringDetailsList(out errormsg2, valdKurs);
+
+            ViewBag.Kurser = registreringMethods.GetRegistreringDetailsList(out errormsg,null).Select(r => r.Ku_Namn).Distinct().ToList();
             RegistreringViewModel registreringViewModel = new RegistreringViewModel
             {
                 ElevDetails = elevMethods.GetElevDetailsList(out errormsg),
-                RegistreringDetails = registreringMethods.GetRegistreringDetailsList(out errormsg2)
+                RegistreringDetails = registreringList
             };
 
             ViewBag.error = "Error1: " + errormsg + " Error2: " + errormsg2;
             return View(registreringViewModel);
-
-
         }
     }
 }
