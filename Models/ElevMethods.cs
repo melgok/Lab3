@@ -14,7 +14,7 @@ namespace SkolSystem.Models
             SqlConnection sqlConnection = new SqlConnection();
             sqlConnection.ConnectionString = "Data Source=localhost,1433;Initial Catalog=SkolDB;User ID=sa;Password=Chandler-420;Pooling=False;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Authentication=SqlPassword;Application Name=vscode-mssql;Connect Retry Count=1;Connect Retry Interval=10;Command Timeout=30";
 
-            String sqlString = "Insert into Tbl_Elev (El_Fornamn, El_Efternamn) values (@El_Fornamn, @El_Efternamn)";
+            String sqlString = "INSERT INTO Tbl_Elev (El_Fornamn, El_Efternamn) VALUES (@El_Fornamn, @El_Efternamn)";
 
 
             SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
@@ -43,6 +43,30 @@ namespace SkolSystem.Models
             }
         }
 
+        public int InsertElevAndReturnId(ElevDetails elevDetails, out string errormsg)
+{
+    errormsg = "";
+    int newId = 0;
+    try
+    {
+        using (var sqlConnection = new SqlConnection("..."))
+        {
+            string sqlString = "INSERT INTO Tbl_Elev (El_Fornamn, El_Efternamn) OUTPUT INSERTED.El_Id VALUES (@El_Fornamn, @El_Efternamn)";
+            using (var sqlCommand = new SqlCommand(sqlString, sqlConnection))
+            {
+                sqlCommand.Parameters.AddWithValue("@El_Fornamn", elevDetails.El_Fornamn);
+                sqlCommand.Parameters.AddWithValue("@El_Efternamn", elevDetails.El_Efternamn);
+                sqlConnection.Open();
+                newId = (int)sqlCommand.ExecuteScalar();
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        errormsg = ex.Message;
+    }
+    return newId;
+}
         public List<ElevDetails> GetElevDetailsList(out string errormsg)
         {
             SqlConnection sqlConnection = new SqlConnection();

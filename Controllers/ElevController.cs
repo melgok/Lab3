@@ -18,16 +18,32 @@ namespace SkolSystem.Controllers
         public IActionResult InsertElev()
         {
             ElevDetails elevDetails = new ElevDetails();
-            ElevMethods elevMethods = new ElevMethods();
+            /*ElevMethods elevMethods = new ElevMethods();
             int i = 0;
             string error = "";
 
-            elevDetails.El_Fornamn = "Melissa";
-            elevDetails.El_Efternamn = "Gök";
-
             i = elevMethods.InsertElev(elevDetails, out error);
             ViewBag.error = error;
-            return View();
+            return View();*/
+            string error = "";
+            RegistreringMethods registreringMethods = new RegistreringMethods();
+            return View(new ElevDetails());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertElev(ElevDetails elevDetails)
+        {
+            string error = "";
+            ElevMethods elevMethods = new ElevMethods();
+            if (ModelState.IsValid)
+            { int rows = elevMethods.InsertElev(elevDetails, out error);
+                if (rows > 0)
+                {
+                    return RedirectToAction("SelectElev");
+                }
+            }
+            ViewBag.error = error;
+            return View(elevDetails);
         }
         public ActionResult SelectElev()
         {

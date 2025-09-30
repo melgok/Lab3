@@ -1,8 +1,30 @@
+@model SkolSystem.Models.ElevDetails
 @{
     ViewData["Title"] = "InsertElev";
 }
 
-<h2>InsertElev</h2>
+<h2>Lägg till ny elev</h2>
 
-<p>Antal poster som uppdateras: @ViewBag.antal</p>
-<p>Eventuellt felmeddelande: @ViewBag.error</p>
+<form asp-action="InsertElev" method="post">
+    <div class="form-group">
+        <label for="El_Fornamn">Förnamn:</label>
+        <input type="text" class="form-control" id="El_Fornamn" name="El_Fornamn" required>
+    </div>
+
+    <div class="form-group">
+        <label for="El_Efternamn">Efternamn:</label>
+        <input type="text" class="form-control" id="El_Efternamn" name="El_Efternamn" required>
+    </div>
+
+    @*<div class="form-group">
+        <label for="Ku_Id">Kurs</label>
+        <select asp-for="Ku_Id" asp-items="@(new SelectList(ViewBag.Kurser, "Ku_Id", "Ku_Namn"))"></select>
+    </div>*@
+
+    <button type="submit" class="btn btn-primary mt-3">Spara</button>
+</form>
+
+@if (!string.IsNullOrEmpty(ViewBag.error as string))
+{
+    <div class="alert alert-danger">@ViewBag.error</div>
+}

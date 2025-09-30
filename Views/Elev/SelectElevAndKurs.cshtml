@@ -6,7 +6,8 @@
 }
 
 
-<form action="SelectElevAndKurs" method="get">
+<form action="SelectElevAndKurs" method="get"> //dropdown meny
+    <label for="Ku_Namn">Välj kurs:</label>
 <select id="Ku_Namn" name="valdKurs">
 @foreach (var item in ViewBag.Kurser)
     {
@@ -22,7 +23,7 @@
 <table class = "table">
 <thead>
     <tr>
-        <th>Fornamn</th>
+        <th>Förnamn</th>
         <th>Efternamn</th>
         <th>Kurs</th>
     </tr>
@@ -35,9 +36,9 @@
             <td>@Html.DisplayFor(modelItem => item.El_Efternamn)</td>
             <td>@Html.DisplayFor(modelItem => item.Ku_Namn)</td>
              <td>
-                    @Html.ActionLink("Edit", "Edit", new { /*id = item.El_Id*/ }) |
-                    @* @Html.ActionLink("Details", "Details", new {/* id = item.El_Id */}) | *@
-                    @Html.ActionLink("Delete", "DeleteElev", new {/*id = item.El_Id*/})
+                    @* @Html.ActionLink("Edit", "UpdateElev", new { /*id = item.El_Id*/ }) |
+                    @Html.ActionLink("Details", "Details", new {/* id = item.El_Id */}) | 
+                    @Html.ActionLink("Delete", "DeleteElev", new {/*id = item.El_Id*/})*@
                 </td>
         </tr>
     }
