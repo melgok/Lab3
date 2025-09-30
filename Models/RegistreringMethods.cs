@@ -6,7 +6,7 @@ namespace SkolSystem.Models
     public class RegistreringMethods
     {
         public RegistreringMethods() { }
-        public List<RegistreringDetails> GetRegistreringDetailsList(out string errormsg)
+        public List<RegistreringDetails> GetRegistreringDetailsList(out string errormsg) //visar vilka elever som är registrerade på vilka kurser
         {
             SqlConnection sqlConnection = new SqlConnection();
             sqlConnection.ConnectionString = "Data Source=localhost,1433;Initial Catalog=SkolDB;User ID=sa;Password=Chandler-420;Pooling=False;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Authentication=SqlPassword;Application Name=vscode-mssql;Connect Retry Count=1;Connect Retry Interval=10;Command Timeout=30";

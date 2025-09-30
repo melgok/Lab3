@@ -152,17 +152,17 @@ namespace SkolSystem.Models
             String sqlString = "UPDATE Tbl_Elev SET El_Fornamn = @El_Fornamn, El_Efternamn = @El_Efternamn WHERE El_Id = @El_Id";
 
             SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
-            
+
             sqlCommand.Parameters.AddWithValue("El_Id", El_Id);
             sqlCommand.Parameters.AddWithValue("El_Fornamn", elevDetails.El_Fornamn);
             sqlCommand.Parameters.AddWithValue("El_Efternamn", elevDetails.El_Efternamn);
-                        
+
             try
             {
                 sqlConnection.Open();
                 int i = sqlCommand.ExecuteNonQuery();
 
-                if (1>0)
+                if (1 > 0)
                 {
                     errormsg = "";
                     return elevDetails;
@@ -172,6 +172,42 @@ namespace SkolSystem.Models
                     errormsg = "Inga elever funna";
                     return elevDetails;
                 }
+            }
+            catch (Exception e)
+            {
+                errormsg = e.Message;
+                return null;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
+        public ElevDetails DeleteElevDetails(int El_Id, out string errormsg)
+        {
+            SqlConnection sqlConnection = new SqlConnection();
+            sqlConnection.ConnectionString = "Data Source=localhost,1433;Initial Catalog=SkolDB;User ID=sa;Password=Chandler-420;Pooling=False;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Authentication=SqlPassword;Application Name=vscode-mssql;Connect Retry Count=1;Connect Retry Interval=10;Command Timeout=30";
+            ElevDetails elevDetails = new ElevDetails();
+            String sqlString = "DELETE FROM Tbl_Elev WHERE El_Id = @El_Id";
+            
+            SqlCommand sqlCommand = new SqlCommand(sqlString, sqlConnection);
+            sqlCommand.Parameters.Add("El_Id", System.Data.SqlDbType.Int).Value = El_Id;
+
+            try
+            {
+                sqlConnection.Open();
+                int i = sqlCommand.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    errormsg = "";
+                    return elevDetails;
+                }
+                else
+                {
+                    errormsg = "Elev ej borttagen";
+                }
+                return null;
             }
             catch (Exception e)
             {

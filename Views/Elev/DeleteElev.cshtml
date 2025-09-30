@@ -1,0 +1,13 @@
+@model SkolSystem.Models.ElevDetails
+
+@{
+    ViewData["Title"] = "DeleteElev";
+}
+<div>
+<form asp-action="DeleteElev" method="post"> 
+@Html.AntiForgeryToken()
+<input type =hidden asp-for="El_Id" />
+    <button type="submit" class="btn btn-danger">Delete</button> 
+    <a asp-action="SelectElev" class="btn btn-secondary">Back to List</a>
+</form>
+    

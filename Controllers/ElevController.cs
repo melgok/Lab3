@@ -68,6 +68,45 @@ namespace SkolSystem.Controllers
             return View(elevDetails);
 
         }
+        [HttpGet]
+        public ActionResult DeleteElev(int id)
+        {
+            if (id == 0)
+            {
+                return RedirectToAction("SelectElev");
+            }
+            
+            ElevMethods elevMethods = new ElevMethods();
+            string error = "";
+
+            ElevDetails elevDetails= elevMethods.GetElevDetails(id, out error);
+
+            if (elevDetails == null)
+            {
+                return RedirectToAction("SelectElev");
+            }
+           
+        ViewBag.error = error;
+        return View(elevDetails);
+
+        }
+        [HttpPost, ActionName("DeleteElev")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteElevConfirmed(ElevDetails elevDetails, int id)
+        {
+            ElevMethods elevMethods = new ElevMethods();
+            string error = "";
+            elevDetails = elevMethods.DeleteElevDetails(id, out error);
+
+            if(!string.IsNullOrEmpty(error))
+            {
+                ViewBag.error = error;
+                return RedirectToAction("SelectElev");
+            }
+
+            return RedirectToAction("SelectElev");
+
+        }
 
         public ActionResult SelectElevAndKurs()
         {

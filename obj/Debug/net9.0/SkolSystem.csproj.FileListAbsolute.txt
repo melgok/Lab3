@@ -144,3 +144,4 @@
 /Users/melissagok/SkolSystem/obj/Debug/net9.0/SkolSystem.pdb
 /Users/melissagok/SkolSystem/obj/Debug/net9.0/SkolSystem.genruntimeconfig.cache
 /Users/melissagok/SkolSystem/obj/Debug/net9.0/ref/SkolSystem.dll
+/Users/melissagok/SkolSystem/obj/Debug/net9.0/SkolSystem.sourcelink.json
